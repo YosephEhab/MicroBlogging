@@ -1,0 +1,20 @@
+﻿@model MicroBlogging.Application.Users.Commands.CreateUserCommand
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>Register</h2>
+
+<form asp-action="Register" method="post">
+    <div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username" />
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+    </div>
+    <button type="submit">Register</button>
+</form>
+
+<p>Already have an account? <a asp-action="Login">Login here</a></p>

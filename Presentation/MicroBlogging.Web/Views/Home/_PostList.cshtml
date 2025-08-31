@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MicroBlogging.Application.Posts.Queries.TimelinePost>
+
+@foreach (var post in Model)
+{
+    <div class="card mb-3 post-card" data-post-id="@post.PostId">
+        <div class="card-body">
+            <h5 class="card-title">@post.Username</h5>
+            <p class="card-text">@post.Content</p>
+
+            @if (post.ImageUrls != null && post.ImageUrls.Any())
+            {
+                <div class="post-images">
+                    @foreach (var url in post.ImageUrls)
+                    {
+                        <img src="@url"
+                             alt="Post Image"
+                             class="img-fluid rounded clickable-img m-1"
+                             style="max-width: 100%; height: auto; cursor: pointer;"
+                             data-bs-toggle="modal"
+                             data-bs-target="#imageModal"
+                             data-img="@url" />
+                    }
+                </div>
+            }
+            <p class="card-text"><small class="text-muted">@post.CreatedAt.ToLocalTime().ToString("g")</small></p>
+        </div>
+    </div>
+}
+
+<!-- Modal for image preview -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark">
+            <div class="modal-body text-center">
+                <img id="modalImage" src="" class="img-fluid rounded" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+
+        // Event fires when Bootstrap modal is shown
+        imageModal.addEventListener('show.bs.modal', function (event) {
+            const img = event.relatedTarget; // clicked image
+            const url = img.getAttribute('data-img');
+            modalImage.src = url;
+        });
+    </script>
+}

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../Application/MicroBlogging.Application/MicroBlogging.Application.csproj" />
+    <ProjectReference Include="../../Domain/MicroBlogging.Domain/MicroBlogging.Domain.csproj" />
+    <ProjectReference Include="../../Infrastructure/MicroBlogging.Authentication/MicroBlogging.Authentication.csproj" />
+    <ProjectReference Include="../../Infrastructure/MicroBlogging.Persistence/MicroBlogging.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

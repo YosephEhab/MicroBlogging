@@ -1,0 +1,21 @@
+﻿@model MicroBlogging.Application.Users.Commands.LoginCommand
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post">
+    <div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username" />
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+    </div>
+    <input type="hidden" asp-for="IpAddress" value="127.0.0.1" />
+    <button type="submit">Login</button>
+</form>
+
+<p>Don’t have an account? <a asp-action="Register">Register here</a></p>

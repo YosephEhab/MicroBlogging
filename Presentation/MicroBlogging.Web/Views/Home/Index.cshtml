@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MicroBlogging.Application.Posts.Queries.TimelinePost>
+
+@{
+    ViewData["Title"] = "Newsfeed";
+}
+
+<h2 class="d-flex justify-content-between align-items-center">
+    <span>Newsfeed</span>
+    <a asp-controller="Post" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Create Post
+    </a>
+</h2>
+
+<div id="timeline">
+    @await Html.PartialAsync("_PostList", Model)
+</div>
+
+<div class="text-center mt-3">
+    <button id="loadMoreBtn" class="btn btn-outline-primary">Load More</button>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("loadMoreBtn").addEventListener("click", function () {
+            const posts = document.querySelectorAll(".post-card");
+            const lastPostId = posts[0]?.dataset.postId;
+            const screenWidth = window.innerWidth;
+
+            if (!lastPostId) return;
+
+            fetch(`/Home/LoadMore?latestPostId=${lastPostId}&screenWidth=${screenWidth}`)
+                .then(response => response.text())
+                .then(html => {
+                    if (html.trim().length > 0) {
+                        document.getElementById("timeline").insertAdjacentHTML("beforeend", html);
+                    } else {
+                        document.getElementById("loadMoreBtn").style.display = "none";
+                    }
+                });
+        });
+    </script>
+}

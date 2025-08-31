@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Create Post";
+}
+
+<h2>Create Post</h2>
+
+<form asp-action="Create" asp-controller="Post" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="text" class="form-label">Text</label>
+        <textarea name="text" id="text" class="form-control" maxlength="500" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="images" class="form-label">Upload Images</label>
+        <input type="file" name="images" id="images" class="form-control" multiple />
+        <small class="text-muted">Max 4 images. JPG, PNG, GIF. 5MB each.</small>
+    </div>
+
+    <input type="hidden" id="latitude" name="latitude" />
+    <input type="hidden" id="longitude" name="longitude" />
+
+    <button type="submit" class="btn btn-primary">Post</button>
+</form>
+
+@section Scripts {
+    <script>
+        // Try to get user geolocation
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (pos) {
+                document.getElementById("latitude").value = pos.coords.latitude;
+                document.getElementById("longitude").value = pos.coords.longitude;
+            });
+        }
+    </script>
+}
